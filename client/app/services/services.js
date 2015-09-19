@@ -3,11 +3,15 @@ angular.module('shortly.services', [])
 .factory('Links', function ($http) {
   // Your code here
   return {
-    getLinks: function (d) {
-      return $http.get({
-        url: '/api/links/',
-        method: 'GET'
-      });
+    getLinks: function (callback) {
+      return $http({
+          method: 'GET',
+          url: '/api/links'
+        })
+        .then(function (resp) {
+          console.log('GET LINKS --->', resp);
+          callback(resp);
+        });
     },
     addLink: function (data) {
       console.log('received arg from services', data, 'with type: ', typeof data);
