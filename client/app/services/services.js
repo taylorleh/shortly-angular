@@ -9,22 +9,18 @@ angular.module('shortly.services', [])
           url: '/api/links'
         })
         .then(function (resp) {
-          callback(resp);
+          return resp.data;
+        })
+        .catch(function (err) {
+          console.log('Error retrieving links: ', err);
         });
     },
-    addLink: function (data) {
-      console.log('received arg from services', data, 'with type: ', typeof data);
+    addLink: function (link) {
       return $http({
-          url: '/api/links',
-          method: 'POST',
-          data: {
-            url: data
-          }
-        })
-        .then(function (resp) {
-          // TODO: handle resp
-          console.log('"addLink POST response: "', resp);
-        });
+        url: '/api/links',
+        method: 'POST',
+        data: link
+      });
     }
   };
 })
