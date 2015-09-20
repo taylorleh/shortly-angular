@@ -1,13 +1,16 @@
 angular.module('shortly.links', [])
 
 .controller('LinksController', function ($scope, Links) {
-  // Your code here
-  $scope.links = {};
+  $scope.data = {};
 
   $scope.getLinks = function () {
-    Links.getLinks(function (linkData) {
-      $scope.links = linkData;
-    });
+    Links.getLinks()
+      .then(function (res) {
+        $scope.data.links = res;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
 
   $scope.getLinks();
